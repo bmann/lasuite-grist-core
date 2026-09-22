@@ -130,7 +130,7 @@ export interface OIDCConfig {
   /** The key of the attribute to use for the user's email. */
   readonly emailPropertyKey: string;
   /** The login method label shown to the user on their profile page. */
-  readonly loginMethod: string;
+  readonly loginMethod?: string;
   /** Alternative URL to redirect user upon logout (overrides the IdP's end_session_endpoint). */
   readonly endSessionEndpoint: string;
   /** If true, won't attempt to call the IdP's end_session_endpoint on logout. */
