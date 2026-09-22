@@ -130,9 +130,9 @@ export interface OIDCConfig {
   /** The key of the attribute to use for the user's email. */
   readonly emailPropertyKey: string;
   /** The key of the attribute to use for the user's picture URL (optional). */
-  readonly picturePropertyKey: string;
+  readonly picturePropertyKey?: string;
   /** The login method label shown to the user on their profile page. */
-  readonly loginMethod: string;
+  readonly loginMethod?: string;
   /** Alternative URL to redirect user upon logout (overrides the IdP's end_session_endpoint). */
   readonly endSessionEndpoint: string;
   /** If true, won't attempt to call the IdP's end_session_endpoint on logout. */
@@ -480,7 +480,9 @@ export class OIDCBuilder {
     return {
       email: String(userInfo[this._config.emailPropertyKey]),
       name: this._extractName(userInfo),
-      picture: (userInfo[this._config.picturePropertyKey] as string) || undefined,
+      picture: this._config.picturePropertyKey
+        ? (userInfo[this._config.picturePropertyKey] as string) || undefined
+        : undefined,
       loginMethod: this._config.loginMethod as UserProfile["loginMethod"],
       // extra fields could be returned by the IdP that we might want to store
       extra: pick(userInfo, process.env.GRIST_IDP_EXTRA_PROPS?.split(",") || []),
