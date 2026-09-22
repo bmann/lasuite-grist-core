@@ -481,7 +481,7 @@ export class OIDCBuilder {
       email: String(userInfo[this._config.emailPropertyKey]),
       name: this._extractName(userInfo),
       picture: (userInfo[this._config.picturePropertyKey] as string) || undefined,
-      loginMethod: this._config.loginMethod,
+      loginMethod: this._config.loginMethod as UserProfile["loginMethod"],
       // extra fields could be returned by the IdP that we might want to store
       extra: pick(userInfo, process.env.GRIST_IDP_EXTRA_PROPS?.split(",") || []),
     };
